@@ -37,15 +37,16 @@ const Login = () => {
       setIsLoading(true)
       fetch(URL, options)
         .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Something went wrong: ${response.textStatus}`)
+          if (response.ok) {
+            return response.json()
+          } else {
+            throw new Error(`Something went wrong...`)
           }
-          return response.json()
         })
         .then((data) => {
           toast({
             title: "Log in sucessfull",
-            description: `You are logged in with username ${username}`,
+            description: `${data.message}`,
             variant: "subtle",
             status: "success",
             duration: 9000,
