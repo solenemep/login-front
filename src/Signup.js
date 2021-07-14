@@ -22,7 +22,7 @@ const Signup = () => {
   const [passwordConf, setPasswordConf] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const URL = `http://localhost:3333/signup/`
+  const URL = `http://localhost:3333/signup`
   const options = {
     method: "POST",
     headers: {
@@ -80,8 +80,10 @@ const Signup = () => {
         })
       }
     } finally {
+      setEmail("")
       setUsername("")
       setPassword("")
+      setPasswordConf("")
       setIsLoading(false)
     }
   }

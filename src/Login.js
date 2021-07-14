@@ -20,7 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const URL = `http://localhost:3333/login/`
+  const URL = `http://localhost:3333/login`
   const options = {
     method: "POST",
     headers: {
