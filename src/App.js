@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider, Container, HStack } from "@chakra-ui/react"
+import Login from "./Login"
+import Signup from "./Signup"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ChakraProvider>
+      <Container maxW="container.md" py={24}>
+        <HStack justifyContent={"space-around"} alignItems={"start"}>
+          <Signup />
+          <Login />
+        </HStack>
+      </Container>
+    </ChakraProvider>
+  )
 }
-
-export default App;
+export default App
