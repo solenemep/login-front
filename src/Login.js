@@ -13,12 +13,12 @@ import { useState } from "react"
 const Login = () => {
   const toast = useToast()
 
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const [showLog, setShowLog] = useState(false)
+  const handleClickLog = () => setShowLog(!showLog)
 
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [usernameLog, setUsernameLog] = useState("")
+  const [passwordLog, setPasswordLog] = useState("")
+  const [isLoadingLog, setIsLoadingLog] = useState(false)
 
   const URL = `http://localhost:3333/login`
   const options = {
@@ -27,21 +27,17 @@ const Login = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: username,
-      password: password,
+      username: usernameLog,
+      password: passwordLog,
     }),
   }
 
   const handleLoginClick = async () => {
     try {
-      setIsLoading(true)
+      setIsLoadingLog(true)
       fetch(URL, options)
         .then((response) => {
-          if (response.ok) {
-            return response.json()
-          } else {
-            throw new Error(`Something went wrong...`)
-          }
+          return response.json()
         })
         .then((data) => {
           toast({
@@ -74,9 +70,9 @@ const Login = () => {
         })
       }
     } finally {
-      setUsername("")
-      setPassword("")
-      setIsLoading(false)
+      setUsernameLog("")
+      setPasswordLog("")
+      setIsLoadingLog(false)
     }
   }
 
@@ -90,30 +86,30 @@ const Login = () => {
       shadow={"xs"}
     >
       <Heading>Log in</Heading>
-      <FormControl id="username" isRequired>
+      <FormControl id="usernameLog" isRequired>
         <Input
           type="text"
           placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={usernameLog}
+          onChange={(e) => setUsernameLog(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordLog" isRequired>
         <InputGroup>
           <Input
-            type={show ? "text" : "password"}
+            type={showLog ? "text" : "password"}
             placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={passwordLog}
+            onChange={(e) => setPasswordLog(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button
               h="1.75rem"
               size="sm"
-              onClick={handleClick}
+              onClick={handleClickLog}
               colorScheme={"pink"}
             >
-              {show ? "Hide" : "Show"}
+              {showLog ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -123,7 +119,7 @@ const Login = () => {
         colorScheme={"orange"}
         isFullWidth
         onClick={handleLoginClick}
-        isLoading={isLoading}
+        isLoading={isLoadingLog}
       >
         Log in
       </Button>

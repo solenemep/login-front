@@ -13,14 +13,16 @@ import { useState } from "react"
 const Signup = () => {
   const toast = useToast()
 
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const [showSign, setShowSign] = useState(false)
+  const handleClickSign = () => setShowSign(!showSign)
+  const [showConfSign, setShowConfSign] = useState(false)
+  const handleClickConfSign = () => setShowConfSign(!showConfSign)
 
-  const [email, setEmail] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [passwordConf, setPasswordConf] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [emailSign, setEmailSign] = useState("")
+  const [usernameSign, setUsernameSign] = useState("")
+  const [passwordSign, setPasswordSign] = useState("")
+  const [passwordConfSign, setPasswordConfSign] = useState("")
+  const [isLoadingSign, setIsLoadingSign] = useState(false)
 
   const URL = `http://localhost:3333/signup`
   const options = {
@@ -29,25 +31,21 @@ const Signup = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: email,
-      username: username,
-      password: password,
+      email: emailSign,
+      username: usernameSign,
+      password: passwordSign,
     }),
   }
 
   const handleSignupClick = async () => {
     try {
-      setIsLoading(true)
-      if (password !== passwordConf) {
+      setIsLoadingSign(true)
+      if (passwordSign !== passwordConfSign) {
         throw new Error("Passwords must be identical")
       }
       fetch(URL, options)
         .then((response) => {
-          if (response.ok) {
-            return response.json()
-          } else {
-            throw new Error(`Something went wrong...`)
-          }
+          return response.json()
         })
         .then((data) => {
           toast({
@@ -80,11 +78,11 @@ const Signup = () => {
         })
       }
     } finally {
-      setEmail("")
-      setUsername("")
-      setPassword("")
-      setPasswordConf("")
-      setIsLoading(false)
+      setEmailSign("")
+      setUsernameSign("")
+      setPasswordSign("")
+      setPasswordConfSign("")
+      setIsLoadingSign(false)
     }
   }
 
@@ -98,58 +96,58 @@ const Signup = () => {
       shadow={"xs"}
     >
       <Heading>Sign up</Heading>
-      <FormControl id="email" isRequired>
+      <FormControl id="emailSign" isRequired>
         <Input
           type="email"
           placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={emailSign}
+          onChange={(e) => setEmailSign(e.target.value)}
         />
       </FormControl>
-      <FormControl id="username" isRequired>
+      <FormControl id="usernameSign" isRequired>
         <Input
           type="text"
           placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={usernameSign}
+          onChange={(e) => setUsernameSign(e.target.value)}
         />
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordSign" isRequired>
         <InputGroup>
           <Input
-            type={show ? "text" : "password"}
+            type={showSign ? "text" : "password"}
             placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={passwordSign}
+            onChange={(e) => setPasswordSign(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button
               h="1.75rem"
               size="sm"
-              onClick={handleClick}
+              onClick={handleClickSign}
               colorScheme={"pink"}
             >
-              {show ? "Hide" : "Show"}
+              {showSign ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="passwordConfSign" isRequired>
         <InputGroup>
           <Input
-            type={show ? "text" : "password"}
+            type={showConfSign ? "text" : "password"}
             placeholder="password confirmation"
-            value={passwordConf}
-            onChange={(e) => setPasswordConf(e.target.value)}
+            value={passwordConfSign}
+            onChange={(e) => setPasswordConfSign(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button
               h="1.75rem"
               size="sm"
-              onClick={handleClick}
+              onClick={handleClickConfSign}
               colorScheme={"pink"}
             >
-              {show ? "Hide" : "Show"}
+              {showConfSign ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -158,7 +156,7 @@ const Signup = () => {
         colorScheme={"orange"}
         isFullWidth
         onClick={handleSignupClick}
-        isLoading={isLoading}
+        isLoading={isLoadingSign}
       >
         Sign up
       </Button>
